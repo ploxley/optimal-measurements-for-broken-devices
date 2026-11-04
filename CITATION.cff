@@ -19,8 +19,8 @@ repository-code: >-
   https://github.com/ploxley/optimal-measurements-for-broken-devices
 keywords:
   - Dynamic programming
-  - ' Information theory '
-  - ' Optimal policy'
+  - Information theory
+  - Optimal policy
   - Efficient algorithm
 license: MIT
 date-released: '2025-01-09'
