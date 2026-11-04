@@ -1,0 +1,26 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Finding optimal measurement sequences for broken or
+  constrained measuring devices
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: P. N.
+    family-names: Loxley
+identifiers:
+  - type: doi
+    value: 10.48550/arXiv.2611.02470
+repository-code: >-
+  https://github.com/ploxley/optimal-measurements-for-broken-devices
+keywords:
+  - Dynamic programming
+  - ' Information theory '
+  - ' Optimal policy'
+  - Efficient algorithm
+license: MIT
+date-released: '2025-01-09'
