@@ -1,7 +1,8 @@
 #lang racket
 (require "static_sensor_model.scm")
 ;(require "time_delay_sensor_model.scm")
-(require "bdt.scm")
+(require "binary_decision_tree.scm")
+(require racket/format)
 
 (define N 2) ; number of measurements to take
 (define n #e1e3) ; number of possible measurements to choose from: |U|
@@ -56,6 +57,7 @@
                      (epl (right-branch t) (add1 depth))))))))
       (epl binary-tree 0))))
 
+(newline)
 (display "Greedy binary decision tree:")
 (newline)
 bt
@@ -63,13 +65,15 @@ bt
 (display nol)
 (newline)
 (display "Average path length: ")
-(display (/ (exact->inexact (total-path-length bt)) nol))
+(display (~r (/ (exact->inexact (total-path-length bt)) nol)
+	     #:precision 4))
 (newline)
 (display "Number of measurements: ")
 (display N)
 (newline)
 (display "Number of bits: ")
-(display (sub-interval-entropy greedy-probabilities))
+(display (~r (sub-interval-entropy greedy-probabilities)
+	     #:precision 4))
 
 (bottom-up-tree-relabel! bt nol inv-cdf)
 
@@ -82,10 +86,11 @@ bt
 (display nol)
 (newline)
 (display "Average path length: ")
-(display (/ (exact->inexact (total-path-length bt)) nol))
+(display (~r (/ (exact->inexact (total-path-length bt)) nol)
+	     #:precision 4))
 (newline)
 (display "Number of measurements: ")
 (display N)
 (newline)
 (display "Number of bits: ")
-(display (log2 nol))
+(display (~r (log2 nol) #:precision 4))

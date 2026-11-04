@@ -4,7 +4,7 @@
 
 ;;;; Model provides W, f, p, g, make-states, and make-controls ;;;;
 
-(define delay-time 10) 
+(define delay-time 1) 
 (define W '(0 1)) ; set of measurement outcomes 
 
 ;; List of floating-point numbers uniform from 0.0 and 1.0
@@ -83,8 +83,8 @@
 	    (cond
 	     ((zero? current-delay)
 	      (cond
-	       ;((= m 0) delay-time)
-	       ((and (= (prev-state x) m) (> k 0)) delay-time)
+	       ;((= m 0) delay-time) ; Dynamic Constraint 1
+	       ((and (= (prev-state x) m) (> k 0)) delay-time) ; Dynamic Constraint 2
 	       (else 0)))
 	     (else
 	      (sub1 current-delay)))))

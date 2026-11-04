@@ -2,6 +2,7 @@
 (require "static_sensor_model.scm")
 ;(require "time_delay_sensor_model.scm")
 (require "dynamic_programming.scm")
+(require racket/format)
 
 (define N 2) ; number of measurements to take
 (define n #e1e2) ; number of possible measurements to choose from: |U|
@@ -46,7 +47,7 @@
 	    (newline)
 	    (set! x (f k x u (car l))) ; must update x before k due to k dependence!
 	    (set! k (add1 k))
-	    (display k)
+	    (if (null? (cdr l)) (display " ") (display k))
 	    (display " ") 
 	    (display x)
 	    (set! u ((object 'get-policy) k x))
@@ -55,7 +56,7 @@
       (newline)
       (display "final J value =")
       (display " ")
-      (display (- ((object 'get-final-J) initial-state)))
+      (display (~r (- ((object 'get-final-J) initial-state)) #:precision 4))
       (newline))))
 
 (define inorder-tree
