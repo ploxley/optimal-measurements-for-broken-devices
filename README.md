@@ -14,7 +14,7 @@ To reproduce the results for Figure 1, type `(enter! "run_dp_model.scm")` on the
 5:   (0.0 . 0.33)
 6: final J value = 1.5848
 ```
-Lines 1 and 2 state this is the optimal policy for measurement outcome *LL*, corresponding to `outcome (0 0)`. Measurement outcome *RR* would correspond to `outcome (1 1)`. On Line 3, the first measurement takes interval [0,1) and bisects it at 0.33, leading to the sub-interval [0,0.33) on Line 4 after the first measurement outcome is received. On Line 4, the second measurement takes interval [0,0.33) and again bisects it at 0.33, leading to no change in the sub-interval one Line 5. One Line 5, the final sub-interval is [0,0.33). On Line 6, the information from the measurement is given as 1.5848 bits. There is a similar output for the greedy policy. 
+Lines 1 and 2 state this is the optimal policy for measurement outcome *LL*, corresponding to `outcome (0 0)`. Measurement outcome *RR* would correspond to `outcome (1 1)`. On Line 3, the first measurement takes interval [0, 1) and bisects it at 0.33, leading to the sub-interval [0, 0.33) on Line 4 after the first measurement outcome is received. On Line 4, the second measurement takes interval [0, 0.33) and again bisects it at 0.33, leading to no change in the sub-interval one Line 5. One Line 5, the final sub-interval is [0, 0.33). On Line 6, the information from the measurement is given as 1.5848 bits. There is a similar output for the greedy policy. 
 
 The second part of the output gives:
 ```
@@ -23,7 +23,7 @@ The second part of the output gives:
 3: (1 . 0.33)
 4: (1 . 0.66)
 ```
-This output summarizes the bisections used by the optimal policy. On Line 2, the first measurement bisected the interval at 0.33. On Line 3, the second measurement bisected the left sub-interval [0,0.33) at 0.33, and the right sub-interval [0.33,1) at 0.66. The only new bisection on the second measurement was 0.66. This is displayed in the optimal policy tree given in the journal article. There is a similar output for the greedy policy. 
+This output summarizes the bisections used by the optimal policy. On Line 2, the first measurement bisected the interval at 0.33. On Line 3, the second measurement bisected the left sub-interval [0, 0.33) at 0.33, and the right sub-interval [0.33, 1) at 0.66. The only new bisection on the second measurement was 0.66. This is displayed in the optimal policy tree given in the journal article. There is a similar output for the greedy policy. 
 
 ## Binary decision tree method
 
