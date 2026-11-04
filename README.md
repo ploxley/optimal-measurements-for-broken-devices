@@ -14,7 +14,7 @@ To reproduce the results for Figure 1, type `(enter! "run_dp_model.scm")` on the
 5:   (0.0 . 0.33)
 6: final J value = 1.5848
 ```
-Lines 1 and 2 state this is the optimal policy for measurement outcome *LL*, corresponding to `outcome (0 0)`. Measurement outcome *RR* would correspond to `outcome (1 1)`. On Line 3, the first measurement takes interval [0, 1) and bisects it at 0.33, leading to the sub-interval [0, 0.33) on Line 4 after the first measurement outcome is received. On Line 4, the second measurement takes interval [0, 0.33) and again bisects it at 0.33, leading to no change in the sub-interval one Line 5. One Line 5, the final sub-interval is [0, 0.33). On Line 6, the information from the measurement is given as 1.5848 bits. There is a similar output for the greedy policy. 
+Lines 1 and 2 state this is the optimal policy for measurement outcome *LL*, corresponding to `outcome (0 0)`. Measurement outcome *RR* would correspond to `outcome (1 1)`. On Line 3, the first measurement takes interval [0, 1) and bisects it at 0.33, leading to the sub-interval [0, 0.33) on Line 4 after the first measurement outcome is received. On Line 4, the second measurement takes interval [0, 0.33) and again bisects it at 0.33, leading to no change in the sub-interval on Line 5. On Line 5, the final sub-interval is [0, 0.33). On Line 6, the information from the two measurements is given as 1.5848 bits. A similar output is given for the greedy policy. 
 
 The second part of the output gives:
 ```
@@ -23,7 +23,7 @@ The second part of the output gives:
 3: (1 . 0.33)
 4: (1 . 0.66)
 ```
-This output summarizes the bisections used by the optimal policy. On Line 2, the first measurement bisected the interval at 0.33. On Line 3, the second measurement bisected the left sub-interval [0, 0.33) at 0.33, and the right sub-interval [0.33, 1) at 0.66. The only new bisection on the second measurement was 0.66. This is displayed in the optimal policy tree given in the journal article. There is a similar output for the greedy policy. 
+This output summarizes the bisections given by the optimal policy. On Line 2, the first measurement bisected the interval at 0.33. On Lines 3--4, the second measurement bisected the left sub-interval [0, 0.33) at 0.33, and the right sub-interval [0.33, 1) at 0.66. The only new bisection for the second measurement was 0.66. This is displayed in the optimal policy tree given in the journal article. There is a similar output for the greedy policy. 
 
 ## Binary decision tree method
 
@@ -39,9 +39,9 @@ The previous method uses dynamic programming to solve the static sensor model. W
 7: Number of measurements: 2
 8: Number of bits: 1.585
 ```
-The binary decision tree is made from constructors defined in the file `binary_decision_tree.scm"`, and makes use of mutable lists. The easiest way to decompose this tree into its left and right branches is to make use of the selectors defined in the file.
+The binary decision tree is made from constructors defined in the file `binary_decision_tree.scm"`, and makes use of mutable lists. The easiest way to decompose this tree into left and right branches is to use of the selectors defined in `binary_decision_tree.scm"`.
 
-Each internal node of the tree is a list that gives the proposed bisection, followed by the left and right end-points of the current sub-interval. Leaf nodes are not displayed. Left branches of the tree correspond to *L* measurement outcomes, and right branches of the tree, to *R* measurement outcomes; similar to the policy trees shown in the journal article. Lines 2--4 make it clear the bisections are 1/3 and 2/3 for this example. Lines 5--8 give further details about the measurement sequence. A similar output is given for the greedy binary decision tree.
+Each internal node of the tree is a list of the proposed bisection, the left end-point, and the right end-point of the current sub-interval. Leaf nodes are not displayed. Left branches of the tree correspond to *L* measurement outcomes, and right branches, to *R* measurement outcomes; similar to the policy trees shown in the journal article. Lines 2--4 make it clear the bisections are 1/3 and 2/3 for this example. Lines 5--8 give further details about the measurement sequence. A similar output is given for the greedy binary decision tree.
 
 Now that we can interpret the output from both methods, I will briefly discuss how to change some of the key model parameters, and how to switch between different constraints and different state distributions.  
 
@@ -73,7 +73,7 @@ To do this we need to edit the Racket module system. In each of the files `dynam
 (require "static_sensor_model.scm")
 ;(require "time_delay_sensor_model.scm")
 ```
-To change to the dynammic constrain, we simply comment-out the first line, and un-comment the second line:
+To change to the dynamic constraint, we simply comment-out the first line, and un-comment the second line:
 
 ```
 ;(require "static_sensor_model.scm")
@@ -85,7 +85,7 @@ In addition, in the `run_dp_model.scm` and `run_bdt_model.scm` files, we need to
 (define initial-state '(0.0 . 1.0))
 ;(define initial-state '((0.0 . 1.0) (0 . 0)))
 ```
-To:
+to:
 
 ```
 ;(define initial-state '(0.0 . 1.0))
@@ -111,7 +111,7 @@ in order to activate Dynamic Constraint 1. Reproducing the `N = 3` results for D
 A final parameter to consider editing in `time_delay_sensor_model.scm` is `(define delay-time 1)`, which is currently set to 1.
 
 ## Changing from a uniform state to a non-uniform state
-Let's go back to the `N = 2` case of Static Constraint (when reversing the previous edits don't forget to change the initial state back). The first change occurs in the function definition for `p` in `static_sensor_model.scm` (similarly in `time_delay_sensor_model.scm`). In that function are the two lines given by:
+Let's go back to the `N = 2` case of Static Constraint (when reversing the previous edits don't forget to change the initial state back). The first change occurs in the function definition for `p` in `static_sensor_model.scm` (similarly in `time_delay_sensor_model.scm`). In that function are two lines given by:
 
 ```
 (let ((p0 (/ (- u (left-state x)) (- (right-state x) (left-state x)))))
